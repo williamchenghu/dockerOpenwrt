@@ -20,7 +20,7 @@ Once docker container is launched from the image being built via the Dockerfile,
 ```bash 
 docker run --rm -it docker-openwrt
 ```
-Each hardware mods are supported via shell script. (e.g. hardware mods info, kernel module, drivers, etc.)
+Each hardware mods are supported via shell script. (e.g. hardware mods info, add legacy hardware to config menu, etc.)
 
 ```bash
 .\tl-wr703n.sh
