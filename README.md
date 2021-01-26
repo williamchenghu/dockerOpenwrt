@@ -20,10 +20,18 @@ Once docker container is launched from the image being built via the Dockerfile,
 ```bash 
 docker run --rm -it docker-openwrt
 ```
-Each hardware mods are supported via shell script. (e.g. hardware mods info, add legacy hardware to config menu, etc.)
+Each hardware mods are supported via shell script. (e.g. hardware mods info, add legacy hardware to config menu, etc.) 
+**Note.** You may be asked to choose the correct time zone.
 
 ```bash
-.\tl-wr703n.sh
+./tl-wr703n.sh
+```
+After configuring build parameters (e.g. target hardware, packages, drivers, etc.), save and start building with *make* inside the source code folder (aka. openwrt).
+
+Once done building, you can find the *factory.bin* and *sysupgrade.bin* inside the folder */openwrt/bin/targets/ar71xx/generic/*, which can be then copied out at the docker host's terminal with command
+
+```bash
+docker cp *CONTAINER*:*FILE_PATH* *LOCAL_PATH*
 ```
 ps. Your can clean up docker leftovers after compile work
 
@@ -34,6 +42,6 @@ docker system prune -a
 ## Supported Hardware
 |     Hardware    |Flash(NAND)/RAM now|Openwrt version|
 |:---------------:|:-----------------:|:-------------:|
-|TP-Link TL-WR703N|      8MB/64MB     |    19.07.2    |
+|TP-Link TL-WR703N|      8MB ([winbond 25Q64FVSIG](https://www.winbond.com/resource-files/w25q64fv%20revq%2006142016.pdf)) / 64MB ([ELPIDA D5116AFTA-5B-E](https://pdf1.alldatasheet.com/datasheet-pdf/view/210989/ELPIDA/EDD5116AFTA-5B-E.html))     |    19.07.6    |
 
 <!-- |  MECOOL BB2 Pro |      16GB/3GB     |    porting    | -->

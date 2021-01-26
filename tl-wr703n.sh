@@ -33,7 +33,7 @@ sudo rm -rf /var/lib/apt/lists/*
 
 git clone https://github.com/openwrt/openwrt.git && \
 cd openwrt
-git checkout v19.07.2 && \
+git checkout v19.07.6 && \
 ./scripts/feeds update -a && \
 ./scripts/feeds install -a && \
 cat >> ./target/linux/ar71xx/image/generic-tp-link.mk <<\EOF
@@ -50,7 +50,7 @@ endef
 TARGET_DEVICES += tl-wr703n-v1
 EOF
 rm -rf .config*
-wget https://downloads.openwrt.org/releases/19.07.2/targets/ar71xx/generic/config.buildinfo -O .config && \
+wget https://downloads.openwrt.org/releases/19.07.6/targets/ar71xx/generic/config.buildinfo -O .config && \
 cat >> .config <<\EOF
 CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_tl-wr703n-v1=y
 CONFIG_TARGET_DEVICE_PACKAGES_ar71xx_generic_DEVICE_tl-wr703n-v1=""
