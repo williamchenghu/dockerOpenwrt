@@ -18,7 +18,7 @@ docker build --rm -t docker-openwrt:latest .
 Once docker container is launched from the image being built via the Dockerfile, you can choose which script to run according to your needs.
 
 ```bash 
-docker run --rm -it docker-openwrt
+docker run --rm --name openwrt-compiler -it docker-openwrt
 ```
 Each hardware mods are supported via shell script. (e.g. hardware mods info, add legacy hardware to config menu, etc.) 
 **Note.** You may be asked to choose the correct time zone.
@@ -31,7 +31,8 @@ After configuring build parameters (e.g. target hardware, packages, drivers, etc
 Once done building, you can find the *factory.bin* and *sysupgrade.bin* inside the folder */openwrt/bin/targets/ar71xx/generic/*, which can be then copied out at the docker host's terminal with command
 
 ```bash
-docker cp *CONTAINER*:*FILE_PATH* *LOCAL_PATH*
+docker cp openwrt-compiler:*FILE_PATH* *LOCAL_PATH*
+
 ```
 ps. Your can clean up docker leftovers after compile work
 
