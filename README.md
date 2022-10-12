@@ -31,19 +31,27 @@ Each version is supported via a shell script named after their version number. B
 - You may be asked to choose the correct time zone.
 - For v19.07, one shall choose `Atheros AR7xxx/AR9xxx` under `Target System` instead of `Atheros ATH79 (DTS)`
 - some `Target Profiles` (e.g., tp-wr703n, tp-wr740n) can be found by choosing `Devices with small flash` (aka. tiny) in `Subtarget`.
+- remember to enable the web GUI for easy management (disabled for _tiny_ targets by default)
+  - `luci` under `LuCI -> Collections`
+  - `luci-theme-openwrt-2020` under `LuCI -> Themes`
+- consider take out PPPoE related choices if never needed:
+  - `ppp, ppp-mod-pppoe` under `Network`
+  - `kmod-ppp, kmod-pppoe, kmod-pppox` under `Kernel modules -> Network Support`
 
 ```bash
 ./v19_07_10.sh
+or
+./v22_03_0.sh
 ```
 
-After configuring build parameters, choose `Exit` and one will be asked if preferences shall be saved, go ahead and confirm. At this point, one can enter the source code folder (aka. openwrt), and do the compilation.
+After configuring build parameters (, also ), choose `Exit` and one will be asked if preferences shall be saved, go ahead and confirm. At this point, one can enter the source code folder (aka. openwrt), and do the compilation.
 
 ```bash
 cd openwrt
-make
+make -j $(nproc)
 ```
 
-Once done building, you can find the _factory.bin_ and _sysupgrade.bin_ inside the folder _/openwrt/bin/targets/ar71xx/tiny/_, which can be then copied out at the docker host's terminal with command
+Once done building, you can find the _kernel_, _manifest_, _factory.bin_ and _sysupgrade.bin_ inside the folder _/openwrt/bin/targets/ar71xx/tiny/_ (or _/openwrt/bin/targets/ath79/tiny/_), which can be then copied out at the docker host's terminal with command
 
 ```bash
 docker cp openwrt-compiler:*FILE_PATH* *LOCAL_PATH*
@@ -60,7 +68,7 @@ docker system prune -a
 
 |                            Hardware                            |                                                                                                   Flash(NAND)/RAM now                                                                                                    | Openwrt version |
 | :------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------: |
-| [TP-Link TL-WR703N](https://openwrt.org/toh/tp-link/tl-wr703n) | 8MB ([winbond 25Q64FVSIG](https://www.winbond.com/resource-files/w25q64fv%20revq%2006142016.pdf)) / 64MB ([ELPIDA D5116AFTA-5B-E](https://pdf1.alldatasheet.com/datasheet-pdf/view/210989/ELPIDA/EDD5116AFTA-5B-E.html)) |    19.07.10     |
-| [TP-Link TL-WR740N](https://openwrt.org/toh/tp-link/tl-wr740n) | 8MB ([winbond 25Q64FVSIG](https://www.winbond.com/resource-files/w25q64fv%20revq%2006142016.pdf)) / 64MB ([ELPIDA D5116AFTA-5B-E](https://pdf1.alldatasheet.com/datasheet-pdf/view/210989/ELPIDA/EDD5116AFTA-5B-E.html)) |    19.07.10     |
+| [TP-Link TL-WR703N](https://openwrt.org/toh/tp-link/tl-wr703n) | 8MB ([winbond 25Q64FVSIG](https://www.winbond.com/resource-files/w25q64fv%20revq%2006142016.pdf)) / 64MB ([ELPIDA D5116AFTA-5B-E](https://pdf1.alldatasheet.com/datasheet-pdf/view/210989/ELPIDA/EDD5116AFTA-5B-E.html)) |     22.03.0     |
+| [TP-Link TL-WR740N](https://openwrt.org/toh/tp-link/tl-wr740n) | 8MB ([winbond 25Q64FVSIG](https://www.winbond.com/resource-files/w25q64fv%20revq%2006142016.pdf)) / 64MB ([ELPIDA D5116AFTA-5B-E](https://pdf1.alldatasheet.com/datasheet-pdf/view/210989/ELPIDA/EDD5116AFTA-5B-E.html)) |     22.03.0     |
 
 <!-- |  MECOOL BB2 Pro |      16GB/3GB     |    porting    | -->
